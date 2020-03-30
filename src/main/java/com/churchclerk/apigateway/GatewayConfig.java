@@ -48,6 +48,16 @@ public class GatewayConfig {
 								f.addRequestHeader("X-ReqAnotherHeader", "church"))
 						.uri("http://churchapi:8080")
 				)
+				.route(r -> r.path("/api/member/**")
+						.filters(f ->
+								f.addRequestHeader("X-ReqAnotherHeader", "member"))
+						.uri("http://memberapi:8080")
+				)
+				.route(r -> r.path("/api/contact")
+						.filters(f ->
+								f.addRequestHeader("X-ReqAnotherHeader", "contact"))
+						.uri("http://contactapi:8080")
+				)
 				.route(r -> r.path("/**")
 						.filters(f ->
 								f.addRequestHeader("X-ReqAnotherHeader", "react"))
