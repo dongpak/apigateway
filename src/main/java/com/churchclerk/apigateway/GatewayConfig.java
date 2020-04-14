@@ -53,7 +53,7 @@ public class GatewayConfig {
 								f.addRequestHeader("X-ReqAnotherHeader", "member"))
 						.uri("http://memberapi:8080")
 				)
-				.route(r -> r.path("/api/contact")
+				.route(r -> r.path("/api/contact/**")
 						.filters(f ->
 								f.addRequestHeader("X-ReqAnotherHeader", "contact"))
 						.uri("http://contactapi:8080")
