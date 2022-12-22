@@ -32,3 +32,18 @@ case $1 in
     echo "util.sh debug <network> <secret> - starts the service in debug"
     ;;
 esac
+
+<plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>2.7.1</version>
+                <configuration>
+                    <to>
+                        <image>container-registry.hudsonmx.net/hudsonmx/${project.artifactId}:${project.version}${version.type}</image>
+                        <auth>
+                            <username>${nexus.username}</username>
+                            <password>${nexus.password}</password>
+                        </auth>
+                    </to>
+                </configuration>
+            </plugin>

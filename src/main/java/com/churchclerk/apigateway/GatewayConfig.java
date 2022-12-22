@@ -4,6 +4,7 @@
 package com.churchclerk.apigateway;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.route.RouteLocator;
@@ -17,14 +18,13 @@ import org.springframework.context.annotation.Configuration;
  *
  */
 @Configuration
+@Slf4j
 public class GatewayConfig {
-
-	private static Logger logger = LoggerFactory.getLogger(GatewayConfig.class);
-
 
 	@Bean
 	public RouteLocator routeLocator(RouteLocatorBuilder builder) {
 
+		log.info("Route Locator");
 		//@formatter:off
 
 		return builder.routes()

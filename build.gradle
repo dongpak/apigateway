@@ -2,41 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.2.5.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-    id "com.bmuschko.docker-remote-api" version "6.1.4"
-}
-
-
-import com.bmuschko.gradle.docker.tasks.container.*
-import com.bmuschko.gradle.docker.tasks.image.*
-import com.bmuschko.gradle.docker.tasks.*
-
-docker {
-    url = 'tcp://host.docker.internal:2375'
-//    url = 'unix:///var/run/docker.sock'
-//    url = 'tcp://127.0.0.1:2375'
-//    url = 'npipe:////./pipe/docker_engine'
-}
-
-task dockerInit(type: Copy) {
-    dependsOn assemble
-
-    into("$buildDir/docker")
-    from("src/docker") {
-        include '**/*.dockerfile'
-        include 'entrypoint.sh'
-    }
-    from("$buildDir/libs/") {
-        include '**/*.jar'
-    }
-}
-
-task dockerImageBuild(type: DockerBuildImage) {
-    dependsOn dockerInit
-
-    images.add('dongpak/addressapi:latest')
-    inputDir	= file("$buildDir/docker")
-    dockerFile	= file("$buildDir/docker/jdk8.dockerfile")
-    remove		= true
+    id "com.google.cloud.tools.jib" version "2.4.0"
 }
 
 group 'com.churchclerk'
@@ -57,6 +23,8 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter'
     implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
     runtimeOnly 'mysql:mysql-connector-java'
 
@@ -65,6 +33,9 @@ dependencies {
     }
     testImplementation('com.h2database:h2')
     testImplementation('com.google.code.gson:gson')
+    testImplementation('org.projectlombok:lombok:1.18.24')
+    testAnnotationProcessor('org.projectlombok:lombok:1.18.24')
+
 }
 
 dependencyManagement {
