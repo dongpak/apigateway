@@ -1,0 +1,16 @@
+#management.endpoints.web.exposure.include=*
+#server.contextPath=/addressapi
+#logging.level.root=DEBUG
+
+
+#
+# JSON Web Token Key
+#
+jwt:
+  secret: ${CHURCHCLERK_JWT_SECRET}
+  debug: false
+
+#
+# Hazelcast In Memory Grid
+#
+
